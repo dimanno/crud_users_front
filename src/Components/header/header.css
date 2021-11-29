@@ -1,0 +1,28 @@
+.wrapHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 50px 5px 50px;
+    height: 60px;
+    background: #043D3FFF;
+}
+
+.wrapHeader h3 {
+    color: #ffffff;
+}
+.wrapHeader a {
+    text-decoration: none;
+}
+
+.rightHeader {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 20px;
+}
+
+.btn {
+    background: #043D3FFF;
+}
+
+.login {
+    padding-right: 20px;
+}

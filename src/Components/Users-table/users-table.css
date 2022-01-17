@@ -1,0 +1,26 @@
+.userList {
+    background: #ffffff;
+    min-height: 200px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    padding-bottom: 20px;
+    border-radius: 2px;
+    width: 70%;
+    color: #656565;
+}
+
+.title{
+    display: flex;
+    width: 100%;
+}
+
+.title h5 {
+    margin: 15px 5px;
+}
+
+.item {
+    width: 20%;
+    flex-wrap: wrap;
+    padding: 0 5px;
+}

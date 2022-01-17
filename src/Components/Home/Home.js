@@ -12,11 +12,9 @@ export function Home() {
         <div className={'home_container'}>
             <h1>Auth & CRUD Task</h1>
             {/*<button onClick={showUsers}>Users</button>*/}
-            <Link to={`${homeURL}users`}>Users</Link>
             <div>
-                <Route path={`${homeURL}users`} component={UsersTable}/>
+                <Link to={`${homeURL}users`}>Users</Link>
             </div>
-
         </div>
 )
 }

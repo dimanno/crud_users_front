@@ -1,49 +1,67 @@
-import {useEffect, useState} from "react";
+import './userForm.css'
+import {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+
+import {actionGetErrorUserData, actionGetUserData} from "../../Redux/Action/Actions";
 import {inputValidator, passwordValidator} from "../../validators";
 
-import './userForm.css'
-
 export function UserForm() {
-    const [errorUserData, setErrorUserData] = useState({
-        username: '',
-        firstname: '',
-        lastname: '',
-        email: '',
-        type: '',
-        password: '',
-        repeat_password: ''
-    })
+    const {
+        userData: formState,
+        errorUserData
+    } = useSelector(state => state);
+    console.log(errorUserData);
+    const dispatch = useDispatch();
 
-    const [formState, setFormState] = useState({
-        _id: '',
-        username: '',
-        firstname: '',
-        lastname: '',
-        email: '',
-        type: '',
-        password: '',
-        repeat_password: ''
-    });
+    // const [errorUserData, setErrorUserData] = useState({
+    //     username: '',
+    //     firstname: '',
+    //     lastname: '',
+    //     email: '',
+    //     type: '',
+    //     password: '',
+    //     repeat_password: ''
+    // })
 
-    const {password} = formState;
+    // const [formState, setFormState] = useState({
+    //     _id: '',
+    //     username: '',
+    //     firstname: '',
+    //     lastname: '',
+    //     email: '',
+    //     type: '',
+    //     password: '',
+    //     repeat_password: ''
+    // });
+
+    const {
+        username,
+        first_name,
+        last_name,
+        email,
+        password,
+        repeat_password,
+        type
+    } = formState;
 
 
-    // useEffect(() => {
-    //     const errorUserDataArr = Object.entries(errorUserData);
-    //
-    //     errorUserDataArr.forEach(item => {
-    //         if (item[1]) {
-    //             document.getElementsByClassName(item[0])[0].classList.add('error-border_style');
-    //             return;
-    //         }
-    //
-    //         const checkErrStyle = document.getElementsByClassName(item[0])[0].classList.contains('error-border_style');
-    //
-    //         if (checkErrStyle) {
-    //             document.getElementsByClassName(item[0])[0].classList.remove('error-border_style');
-    //         }
-    //     });
-    // }, [errorUserData]);
+    useEffect(() => {
+        const errorUserDataArr = Object.entries(errorUserData);
+        console.log(errorUserDataArr);
+        errorUserDataArr.forEach(item => {
+            console.log(item[1]);
+            if (item[1]) {
+                document.getElementsByClassName(item[0])[0].classList.add('error-border_style');
+                return;
+            }
+
+            const checkErrStyle = document.getElementsByClassName(item[0])[0].classList.contains('error-border_style');
+
+            if (checkErrStyle) {
+                document.getElementsByClassName(item[0])[0].classList.remove('error-border_style');
+            }
+        });
+    }, [errorUserData]);
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -55,10 +73,10 @@ export function UserForm() {
         e.preventDefault();
 
         const error = inputValidator(name, value);
-        setErrorUserData({
+        dispatch(actionGetErrorUserData({
             ...errorUserData,
             [name]: error
-        });
+        }));
 
         let errorRepeatPassword;
 
@@ -67,16 +85,16 @@ export function UserForm() {
         }
 
         if (errorRepeatPassword) {
-            setErrorUserData({
+            dispatch(actionGetErrorUserData({
                 ...errorUserData,
                 repeat_password: errorRepeatPassword
-            });
+            }));
         }
 
-        setFormState({
+        dispatch(actionGetUserData({
             ...formState,
             [name]: value
-        });
+        }));
     }
 
     return (
@@ -92,7 +110,7 @@ export function UserForm() {
                             className={'inputField'}
                             name={'username'}
                             type='text'
-                            value={formState.username}
+                            value={username}
                             onChange={inputChange}
                             autoComplete='off'
                         />
@@ -108,14 +126,14 @@ export function UserForm() {
                         First name
                         <input
                             className={'inputField'}
-                            name='firstname'
+                            name={'firstname'}
                             type='text'
-                            value={formState.firstname}
+                            value={first_name}
                             onChange={inputChange}
                             autoComplete='off'
                         />
                         <div className={'error-msg_style'}>
-                            {errorUserData.firstname}
+                            {errorUserData.first_name}
                         </div>
                     </label>
 
@@ -126,14 +144,14 @@ export function UserForm() {
                         Last name
                         <input
                             className={'inputField'}
-                            name='lastname'
+                            name={'lastname'}
                             type='text'
-                            value={formState.lastname}
+                            value={last_name}
                             onChange={inputChange}
                             autoComplete='off'
                         />
                         <div className={'error-msg_style'}>
-                            {errorUserData.lastname}
+                            {errorUserData.last_name}
                         </div>
                     </label>
 
@@ -144,9 +162,9 @@ export function UserForm() {
                         Email
                         <input
                             className={'inputField'}
-                            name='email'
+                            name={'email'}
                             type='email'
-                            value={formState.email}
+                            value={email}
                             onChange={inputChange}
                             autoComplete='off'
                         />
@@ -162,7 +180,7 @@ export function UserForm() {
                         <select
                             className={'inputField'}
                             name='type'
-                            value={formState.type}
+                            value={type}
                             onChange={inputChange}
                         >
                             <option value="Admin">Admin</option>
@@ -179,7 +197,7 @@ export function UserForm() {
                             className={'inputField'}
                             name='password'
                             type='password'
-                            value={formState.password}
+                            value={password}
                             onChange={inputChange}
                             autoComplete='off'
                         />
@@ -196,7 +214,7 @@ export function UserForm() {
                             className={'inputField'}
                             name='repeat_password'
                             type='password'
-                            value={formState.repeat_password}
+                            value={repeat_password}
                             onChange={inputChange}
                             autoComplete='off'
                         />

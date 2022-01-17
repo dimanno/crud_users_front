@@ -1,12 +1,80 @@
 import './registration.css'
 
 import {UserForm} from "../User-form/User.form";
+import {useSelector, useDispatch} from "react-redux";
+import {addUser} from "../../Services/user.service";
+import {inputValidator, passwordValidator} from "../../validators";
+import {actionGetErrorUserData} from "../../Redux/Action/Actions";
 
 export function Registration() {
+    const {
+        userData: userDataObj,
+        errorUserData,
+    } = useSelector(state => state);
+
+    const dispatch = useDispatch();
+
+    const userCreateOrEdit = (userDataObj, errorUserData, createKey = 1) => {
+        const {
+            _id,
+            repeat_password,
+            ...userDataForFetch
+        } = userDataObj
+
+        const errorArray = Object.values(errorUserData);
+        const error = errorArray.join('').length;
+
+        const isCreateExist =
+            (!error) &&
+            (!Object.values(userDataForFetch).includes('')) &&
+            userDataObj.password === userDataObj.repeat_password;
+
+        if (isCreateExist && createKey) {
+            dispatch(addUser(userDataForFetch));
+
+            return;
+        }
+
+        // if (isCreateExist) {
+        //     dispatch(updateUser(_id, userDataForFetch));
+        //
+        //     history.push(homeURL);
+        //
+        //     return;
+        // }
+
+        const userDataArr = Object.entries(userDataForFetch);
+
+        userDataArr.forEach(item => {
+            if (item[0] !== 'repeat_password') {
+                errorUserData[item[0]] = inputValidator(item[0], item[1]);
+            }
+        });
+
+        let errorRepeatPassword =
+            passwordValidator(userDataObj.password, userDataObj.repeat_password) ||
+            inputValidator('repeat_password', userDataObj.repeat_password) || '';
+
+        let checkLength;
+
+        if (!errorRepeatPassword) {
+            checkLength = (userDataObj.password.length > userDataObj.repeat_password.length);
+        }
+
+        if (checkLength) {
+            errorRepeatPassword = 'Passwords do not match';
+        }
+
+        dispatch(actionGetErrorUserData({
+            ...errorUserData,
+            repeat_password: errorRepeatPassword
+        }));
+    }
 
     const clickCreateUser = () => {
-
+        userCreateOrEdit(userDataObj, errorUserData, 1)
     }
+
     return (
         <div className={'formContainer'}>
             <div>
@@ -23,5 +91,4 @@ export function Registration() {
             </div>
         </div>
     )
-
 }

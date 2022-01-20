@@ -10,7 +10,7 @@ export function UserForm() {
         userData: formState,
         errorUserData
     } = useSelector(state => state);
-    console.log(errorUserData);
+    
     const dispatch = useDispatch();
 
     // const [errorUserData, setErrorUserData] = useState({
@@ -45,23 +45,23 @@ export function UserForm() {
     } = formState;
 
 
-    useEffect(() => {
-        const errorUserDataArr = Object.entries(errorUserData);
-        console.log(errorUserDataArr);
-        errorUserDataArr.forEach(item => {
-            console.log(item[1]);
-            if (item[1]) {
-                document.getElementsByClassName(item[0])[0].classList.add('error-border_style');
-                return;
-            }
-
-            const checkErrStyle = document.getElementsByClassName(item[0])[0].classList.contains('error-border_style');
-
-            if (checkErrStyle) {
-                document.getElementsByClassName(item[0])[0].classList.remove('error-border_style');
-            }
-        });
-    }, [errorUserData]);
+    // useEffect(() => {
+    //     const errorUserDataArr = Object.entries(errorUserData);
+    //     console.log(errorUserDataArr);
+    //     errorUserDataArr.forEach(item => {
+    //         console.log(item);
+    //         if (item[1]) {
+    //             document.getElementsByClassName(item[0])[0].classList.add('error-border_style');
+    //             return;
+    //         }
+    //
+    //         // const checkErrStyle = document.getElementsByClassName(item[0])[0].classList.contains('error-border_style')
+    //
+    //         // if (checkErrStyle) {
+    //         //     document.getElementsByClassName(item[0])[0].classList.remove('error-border_style');
+    //         // }
+    //     });
+    // }, [errorUserData]);
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -126,7 +126,7 @@ export function UserForm() {
                         First name
                         <input
                             className={'inputField'}
-                            name={'firstname'}
+                            name={'first_name'}
                             type='text'
                             value={first_name}
                             onChange={inputChange}
@@ -144,7 +144,7 @@ export function UserForm() {
                         Last name
                         <input
                             className={'inputField'}
-                            name={'lastname'}
+                            name={'last_name'}
                             type='text'
                             value={last_name}
                             onChange={inputChange}

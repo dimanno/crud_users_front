@@ -1,6 +1,5 @@
 import {
-    GET_USERS,
-    GET_ERROR_USER_DATA, GET_USER_DATA
+    GET_USERS, GET_ERROR_USER_DATA, GET_USER_DATA, ADD_USER
 } from '../Action/action.types';
 
 const defaultUserData = {
@@ -32,9 +31,13 @@ const initialState = {
 }
 const rootReducer = (state = initialState, {type, payload}) => {
     switch (type) {
+        case ADD_USER:
+            return {...state, users: [...state.users, payload]};
+
         case GET_USERS:
             console.log(payload)
             return {...state, users: [...payload]}
+
         case GET_USER_DATA:
             return {...state, userData: {...state.userData, ...payload}};
 

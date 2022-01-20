@@ -19,11 +19,16 @@ const actionGetUserData = (userDataObj) => {
     return {type: GET_USER_DATA, payload: userDataObj};
 }
 
+const actionAddUser = (userDataObj) => {
+    return {type: ADD_USER, payload: userDataObj};
+}
+
 const actionGetErrorUserData = (userDataObj) => {
     return {type: GET_ERROR_USER_DATA, payload: userDataObj};
 }
 
 export {
+    actionAddUser,
     actionGetUsers,
     actionGetUserData,
     actionGetErrorUserData

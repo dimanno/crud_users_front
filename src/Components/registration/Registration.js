@@ -2,11 +2,15 @@ import './registration.css'
 
 import {UserForm} from "../User-form/User.form";
 import {useSelector, useDispatch} from "react-redux";
-import {addUser} from "../../Services/user.service";
+import {addUser, homeURL} from "../../Services/user.service";
 import {inputValidator, passwordValidator} from "../../validators";
-import {actionGetErrorUserData} from "../../Redux/Action/Actions";
+import {actionAddUser, actionGetErrorUserData} from "../../Redux/Action/Actions";
+import {Route} from "react-router-dom";
+import {UsersTable} from "../Users-table/Users.table";
 
 export function Registration() {
+    // const {history, match: {url}} = props;
+    // console.log(url);
     const {
         userData: userDataObj,
         errorUserData,
@@ -30,7 +34,7 @@ export function Registration() {
             userDataObj.password === userDataObj.repeat_password;
 
         if (isCreateExist && createKey) {
-            dispatch(addUser(userDataForFetch));
+            addUser(dispatch, userDataForFetch);
 
             return;
         }
@@ -89,6 +93,9 @@ export function Registration() {
                     Create
                 </button>
             </div>
+            <Route path={`${homeURL}/users`} render={(props) => {
+                return <UsersTable userCreateOrEdit={userCreateOrEdit} {...props}/>
+            }}/>
         </div>
     )
 }

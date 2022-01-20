@@ -1,5 +1,7 @@
 // import axiosConfig from './axios.config'
 
+import {actionAddUser} from "../Redux/Action/Actions";
+
 const baseURL = 'http://localhost:5050';
 const usersURL = '/users';
 const homeURL = '/';
@@ -19,14 +21,15 @@ const getAllUsers = async () => {
 //     // dispatch(actionInsertUsers(response.data));
 // };
 
-const addUser = (userData) => {
-    fetch(`${baseURL + usersURL}`, {
+const addUser = async (dispatch, userDataObj) => {
+    let response = await fetch(`${baseURL + usersURL}`, {
         method: 'POST',
-        body: JSON.stringify({userData}),
+        body: JSON.stringify({userDataObj}),
         headers: {
             'Content-type': 'application/json; charset=UTF-8'
         }
     }).then(value => value.json());
+    dispatch(actionAddUser(response))
 }
 
 // const addUser = (dataUserObj) => async (dispatch) => {

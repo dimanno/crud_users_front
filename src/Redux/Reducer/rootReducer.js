@@ -8,7 +8,7 @@ const defaultUserData = {
     first_name: '',
     last_name: '',
     email: '',
-    type: 'Admin',
+    user_type: 'Admin',
     password: '********',
     repeat_password: '********'
 }
@@ -20,7 +20,7 @@ const errorUserData = {
     email: '',
     password: '',
     repeat_password: '',
-    type: ''
+    user_type: ''
 };
 
 const initialState = {

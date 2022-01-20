@@ -1,7 +1,7 @@
 import './user.css'
 export function User({item}) {
-    const {username, first_name, last_name, email, type} = item
-    console.log(first_name);
+    const {username, first_name, last_name, email, user_type} = item
+
     return (
         <div className={'user_box'}>
             <p className={'user_field'}>
@@ -16,9 +16,9 @@ export function User({item}) {
             <p className={'user_field'}>
                 {email}
             </p>
-            <p className={'user_field'}>
-                {type}
-            </p>
+            {/*<p className={'user_field'}>*/}
+            {/*    {user_type}*/}
+            {/*</p>*/}
         </div>
     )
 }

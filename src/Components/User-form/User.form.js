@@ -41,7 +41,7 @@ export function UserForm() {
         email,
         password,
         repeat_password,
-        type
+        user_type
     } = formState;
 
 
@@ -179,12 +179,12 @@ export function UserForm() {
 
                         <select
                             className={'inputField'}
-                            name='type'
-                            value={type}
+                            name='user_type'
+                            value={user_type}
                             onChange={inputChange}
                         >
                             <option value="Admin">Admin</option>
-                            <option value="Driver">Driver</option>
+                            <option value="User">User</option>
                         </select>
                     </div>
 
